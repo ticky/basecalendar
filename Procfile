@@ -1,1 +1,1 @@
-web: ROCKET_ENV=prod ROCKET_PORT=$PORT ./target/release/basecalendar
+web: bundle exec rackup config.ru -p $PORT
