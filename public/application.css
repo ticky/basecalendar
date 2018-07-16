@@ -1,0 +1,16 @@
+* { box-sizing: border-box; }
+
+body {
+  font-family: system, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", "Lucida Grande", Arial, sans-serif;
+  background-color: #fbfbfb;
+  color: #515151;
+}
+
+a:link, a:visited {
+  color: #893ff4;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  text-decoration: underline
+}

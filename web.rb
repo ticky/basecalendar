@@ -13,6 +13,8 @@ use OmniAuth::Builder do
            ENV['BASECAMP_CLIENT_SECRET']
 end
 
+set :erb, layout: :layout
+
 get '/' do
   # TODO: If logged in, show calendar selection
   erb :index
