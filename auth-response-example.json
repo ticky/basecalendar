@@ -1,0 +1,35 @@
+{
+  "provider": "basecamp",
+  "uid": 12345678,
+  "info": {
+    "id": 12345678,
+    "email_address": "jess@example.com",
+    "first_name": "Jessica",
+    "last_name": "",
+    "name": "Jessica"
+  },
+  "credentials": {
+    "token": "[censored]",
+    "refresh_token": "[censored]",
+    "expires_at": 1532900000,
+    "expires": true
+  },
+  "extra": {
+    "expires_at": "2018-01-01T00:00:00.000Z",
+    "identity": {
+      "id": 12345678,
+      "email_address": "jess@example.com",
+      "first_name": "Jessica",
+      "last_name": ""
+    },
+    "accounts": [
+      {
+        "id": 8765432,
+        "name": "My Basecamp",
+        "product": "bc3",
+        "href": "https://3.basecampapi.com/8765432",
+        "app_href": "https://3.basecamp.com/8765432"
+      }
+    ]
+  }
+}
