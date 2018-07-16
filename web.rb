@@ -35,3 +35,7 @@ get '/calendar/:token/:config.ics' do
   # TODO: Look up user by token, config encodes list of calendar IDs to merge
   # TODO: Messagepack?
 end
+
+not_found do
+  erb :'error/404'
+end
