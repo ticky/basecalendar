@@ -14,18 +14,24 @@ use OmniAuth::Builder do
 end
 
 get '/' do
+  # TODO: If logged in, show calendar selection
   erb :index
 end
 
 get '/auth/:provider/callback' do
   auth = request.env['omniauth.auth']
 
-  pp auth
+  # TODO: Look up user in DB, if not extant, create them and store our token
+  # TODO: Set user in session, redirect to calendar configuration page (homepage when logged in)
+
+  erb :auth_success
 end
 
 get '/auth/failure' do
   erb :auth_failure
 end
 
-get '/calendar/:uuid/:config' do
+get '/calendar/:token/:config.ics' do
+  # TODO: Look up user by token, config encodes list of calendar IDs to merge
+  # TODO: Messagepack?
 end

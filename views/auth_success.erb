@@ -3,14 +3,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Auth Failed - Basecalendar</title>
+    <title>Basecalendar</title>
   </head>
   <body>
     <div>
       <h1>Basecalendar</h1>
-      <p>Something went wrong!</p>
-      <p><%= params[:message] %></p>
-      <a href="/auth/basecamp">Try Again</a>
+      <%= JSON.generate(request.env['omniauth.auth']) %>
     </div>
   </body>
 </html>
