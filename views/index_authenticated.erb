@@ -1,18 +1,25 @@
 <h1>Basecalendar</h1>
-<p>Hi <%= @authorization.body.dig('identity', 'first_name') || 'there' %>, you're signed in! You can <a href="/sign-out">Sign out</a></p>
+<p>Hi <%= @authorization.body.dig('identity', 'first_name') || 'there' %>, you're signed in! You can <a href="/sign-out">sign out</a> if you want to.</p>
 
-<code><pre><%= JSON.pretty_generate(@authorization.body) %></pre></code>
+<h2>Your Schedules</h2>
 
-<h2>Your Accounts</h2>
+<p>Choose Basecamp schedules to include in your calendar, then get your calendar link below.</p>
 
-<% @account_calendars.each do |name, projects| %>
-  <h3><%= name %></h3>
+<form id="calendars">
+<% @account_calendars.each do |account, projects| %>
+  <h3 data-account-id="<%= account['id'] %>"><%= account['name'] %></h3>
   <ul>
+    <li>
+      <label>
+        <input type="checkbox" name="my" disabled />
+        My Schedule (TODO)
+      </label>
+    </li>
   <% projects.each do |project| %>
     <% project['dock'].select{|item| item['enabled'] && item['name'] == 'schedule'}.each do |item| %>
     <li>
       <label>
-        <input type="checkbox" name="<%= item['url'] %>"<% if project['purpose'] == 'company_hq' %> checked<% end %> />
+        <input type="checkbox" name="<%= [account['id'], project['id'], item['id']].join('::') %>" title="<%= [account['id'], project['id'], item['id']].join('::') %>"<% if project['purpose'] == 'company_hq' %> checked<% end %> />
         <%= project['name'] %><% if item['title'] != 'Schedule'%> - <%= item['title'] %><% end %>
       </label>
     </li>
@@ -20,3 +27,10 @@
   <% end %>
   </ul>
 <% end %>
+</form>
+
+<h2>Your Calendar Link</h2>
+
+<p>Click this link to add these schedules to your calendar.</p>
+
+<a id="generated_link">Calendar Link</a>

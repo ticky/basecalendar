@@ -78,7 +78,7 @@ get '/' do
         ].join ' '
       end
 
-      @account_calendars << [account['name'], collated_projects]
+      @account_calendars << [account, collated_projects]
     end
 
     return erb :index_authenticated
