@@ -31,7 +31,7 @@ const updateLink = () => {
     ).toString('base64');
 
     calendarLink.disabled = false;
-    calendarLink.href = `webcal://${location.host}/calendar/${calendarLink.dataset.accessToken}/${calendarConfig}.ics`;
+    calendarLink.href = `webcal://${location.host}/calendar/${calendarLink.dataset.accessToken}/${encodeURIComponent(calendarConfig)}.ics`;
   } else {
     calendarLink.disabled = true;
     calendarLink.href = '';
