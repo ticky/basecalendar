@@ -5,11 +5,15 @@ source "https://rubygems.org"
 gem 'dotenv'
 gem 'faraday'
 gem 'faraday_middleware'
-gem 'sinatra'
-gem 'sinatra-contrib'
+gem 'http_link_header'
 gem 'omniauth-bcx'
 gem 'omniauth-oauth2'
+gem 'pg'
+gem 'sequel'
+gem 'sinatra'
+gem 'sinatra-contrib'
 gem 'rack'
+gem 'rake'
 
 group :development do
   gem 'pry'

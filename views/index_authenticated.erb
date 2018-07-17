@@ -1,0 +1,22 @@
+<h1>Basecalendar</h1>
+<p>Hi <%= @authorization.body.dig('identity', 'first_name') || 'there' %>, you're signed in! You can <a href="/sign-out">Sign out</a></p>
+
+<code><pre><%= JSON.pretty_generate(@authorization.body) %></pre></code>
+
+<h2>Your Accounts</h2>
+
+<% @account_calendars.each do |name, projects| %>
+  <h3><%= name %></h3>
+  <ul>
+  <% projects.each do |project| %>
+    <% project['dock'].select{|item| item['enabled'] && item['name'] == 'schedule'}.each do |item| %>
+    <li>
+      <label>
+        <input type="checkbox" name="<%= item['url'] %>"<% if project['purpose'] == 'company_hq' %> checked<% end %> />
+        <%= project['name'] %><% if item['title'] != 'Schedule'%> - <%= item['title'] %><% end %>
+      </label>
+    </li>
+    <% end %>
+  <% end %>
+  </ul>
+<% end %>
