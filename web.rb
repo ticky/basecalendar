@@ -4,6 +4,7 @@ require 'dotenv/load'
 require 'faraday'
 require 'faraday_middleware'
 require 'http_link_header'
+require 'msgpack'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'omniauth-oauth2'
@@ -39,8 +40,8 @@ end
 
 get '/' do
   if session[:user_id]
-    user = User.find(id: session[:user_id])
-    token = Token.find(user_id: user.id)
+    @user = User.find(id: session[:user_id])
+    token = Token.find(user_id: @user.id)
 
     @authorization = faraday_for(url: 'https://launchpad.37signals.com',
                                  token: token.token)
@@ -120,8 +121,11 @@ get '/sign-out' do
 end
 
 get '/calendar/:token/:config.ics' do
-  # TODO: Look up user by token, config encodes list of calendar IDs to merge
-  # TODO: Messagepack?
+  user = User.find(access_token: params[:token])
+  config = MessagePack.unpack Base64.decode64(params[:config])
+
+  # TODO: Generate calendar from config & tokens
+  # TODO: Refresh access token if needed
 end
 
 not_found do

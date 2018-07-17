@@ -1,3 +1,5 @@
+<script async src="/application.js"></script>
+
 <h1>Basecalendar</h1>
 <p>Hi <%= @authorization.body.dig('identity', 'first_name') || 'there' %>, you're signed in! You can <a href="/sign-out">sign out</a> if you want to.</p>
 
@@ -33,4 +35,4 @@
 
 <p>Click this link to add these schedules to your calendar.</p>
 
-<a id="generated_link">Calendar Link</a>
+<a id="generated_link" data-access-token="<%= @user.access_token %>">Calendar Link</a>

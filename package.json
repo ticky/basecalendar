@@ -1,0 +1,19 @@
+{
+  "name": "basecalendar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ticky/basecalendar.git",
+  "author": "Jessica Stokes <hello@jessicastokes.net>",
+  "scripts": {
+    "build": "parcel build src/application.js -d public",
+    "heroku-postbuild": "build"
+  },
+  "dependencies": {
+    "msgpack-lite": "^0.1.26",
+    "parcel-bundler": "^1.9.7"
+  },
+  "engines": {
+    "node": "10.6.x",
+    "yarn": "1.7.x"
+  }
+}

@@ -1,1 +1,5 @@
+.cache
+node_modules
+public/application.js
+public/application.map
 .env
