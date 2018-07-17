@@ -6,7 +6,7 @@
   "author": "Jessica Stokes <hello@jessicastokes.net>",
   "scripts": {
     "build": "parcel build src/application.js -d public",
-    "heroku-postbuild": "build"
+    "heroku-postbuild": "yarn build"
   },
   "dependencies": {
     "msgpack-lite": "^0.1.26",
