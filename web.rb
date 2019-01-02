@@ -54,11 +54,11 @@ get '/' do
     @account_calendars = []
 
     @authorization.body.dig('accounts').each do |account|
-      project_url = "#{account['href']}/projects.json" # ugh
+      projects_url = "#{account['href']}/projects.json" # ugh
       collated_projects = []
 
       loop do
-        projects = basecamp.get(project_url)
+        projects = basecamp.get(projects_url)
 
         # Only grab projects with "schedule" (calendar) activated
         collated_projects.concat(projects.body.select do |project|
@@ -69,9 +69,9 @@ get '/' do
 
         break if projects.headers['link'].nil?
 
-        project_url = HttpLinkHeader.new(projects.headers['link']).rel('next')
+        projects_url = HttpLinkHeader.new(projects.headers['link']).rel('next')
 
-        break if project_url.nil?
+        break if projects_url.nil?
       end
 
       collated_projects.sort_by! do |project|
