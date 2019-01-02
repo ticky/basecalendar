@@ -12,6 +12,9 @@ GEM
       faraday (>= 0.7.4, < 1.0)
     hashie (3.6.0)
     http_link_header (0.2.0)
+    icalendar (2.5.2)
+      ice_cube (~> 0.16)
+    ice_cube (0.16.3)
     jwt (2.1.0)
     method_source (0.9.2)
     msgpack (1.2.4)
@@ -65,6 +68,7 @@ DEPENDENCIES
   faraday-http-cache
   faraday_middleware
   http_link_header
+  icalendar
   msgpack
   omniauth-bcx
   omniauth-oauth2
