@@ -12,23 +12,30 @@ const updateLink = () => {
   );
 
   if (selectedSchedules.length > 0) {
-    const calendarConfig = MessagePack.encode(
-      selectedSchedules.reduce((scheduleSet, element) => {
-        const [account, bucket, schedule] = element.name.split('::').map((name) => parseInt(name, 10));
+    const calendarRawConfig = selectedSchedules.reduce((scheduleSet, element) => {
+      const [account, bucket, schedule] = element.name.split('::')
+                                                      .map((name) => (
+                                                        name === 'my'
+                                                          ? name
+                                                          : parseInt(name, 10)
+                                                      ));
 
-        if (!scheduleSet[account]) {
-          scheduleSet[account] = {};
-        }
+      if (!scheduleSet[account]) {
+        scheduleSet[account] = {};
+      }
 
-        if (!scheduleSet[account][bucket]) {
-          scheduleSet[account][bucket] = [];
-        }
+      if (!scheduleSet[account][bucket]) {
+        scheduleSet[account][bucket] = [];
+      }
 
+      if (schedule) {
         scheduleSet[account][bucket].push(schedule);
+      }
 
-        return scheduleSet;
-      }, {})
-    ).toString('base64');
+      return scheduleSet;
+    }, {});
+
+    const calendarConfig = MessagePack.encode(calendarRawConfig).toString('base64');
 
     calendarLink.disabled = false;
     calendarLink.href = `webcal://${location.host}/calendar/${calendarLink.dataset.accessToken}/${encodeURIComponent(calendarConfig)}.ics`;

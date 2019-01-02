@@ -13,8 +13,8 @@
   <ul>
     <li>
       <label>
-        <input type="checkbox" name="my" disabled />
-        My Schedule (TODO)
+        <input type="checkbox" name="<%= [account['id'], 'my'].join('::') %>" />
+        My Schedule
       </label>
     </li>
   <% projects.each do |project| %>
