@@ -3,6 +3,7 @@
 require 'dotenv/load'
 require 'faraday'
 require 'faraday_middleware'
+require 'faraday-http-cache'
 require 'http_link_header'
 require 'msgpack'
 require 'sinatra'
@@ -33,6 +34,7 @@ def faraday_for(url:, token:)
     faraday.request :json
     faraday.response :json
     faraday.headers['User-Agent'] = 'Basecalendar/1.0 (jessstokes@fastmail.com)'
+    faraday.use :http_cache
     faraday.adapter Faraday.default_adapter
     faraday.authorization :Bearer, token
   end
@@ -45,15 +47,14 @@ get '/' do
                    .where { expires_at > Time.now }
                    .last(user_id: @user.id))
 
-    @authorization = faraday_for(url: 'https://launchpad.37signals.com',
-                                 token: token.token)
-                     .get('authorization.json')
+    basecamp = faraday_for(url: nil, token: token.token)
+
+    @authorization = basecamp.get('https://launchpad.37signals.com/authorization.json')
 
     @account_calendars = []
 
     @authorization.body.dig('accounts').each do |account|
-      basecamp = faraday_for(url: account['href'], token: token.token)
-      project_url = 'projects.json'
+      project_url = "#{account['href']}/projects.json" # ugh
       collated_projects = []
 
       loop do
@@ -102,8 +103,6 @@ get '/auth/:provider/callback' do
     new_token.refresh_token = auth.credentials.refresh_token
     new_token.expires_at = Time.at(auth.credentials.expires_at)
   end
-
-  # TODO: Check for needing refresh token - are these tokens always "fresh" at this point?
 
   session[:user_id] = user.id
 

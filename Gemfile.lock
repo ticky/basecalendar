@@ -6,6 +6,8 @@ GEM
     dotenv (2.5.0)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
+    faraday-http-cache (2.0.0)
+      faraday (~> 0.8)
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     hashie (3.6.0)
@@ -60,6 +62,7 @@ PLATFORMS
 DEPENDENCIES
   dotenv
   faraday
+  faraday-http-cache
   faraday_middleware
   http_link_header
   msgpack
