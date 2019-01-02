@@ -39,9 +39,11 @@ def faraday_for(url:, token:)
 end
 
 get '/' do
-  if session[:user_id]
-    @user = User.find(id: session[:user_id])
-    token = Token.find(user_id: @user.id)
+  if session[:user_id] &&
+     (@user = User.find(id: session[:user_id])) &&
+     (token = Token.order(:expires_at)
+                   .where { expires_at > Time.now }
+                   .last(user_id: @user.id))
 
     @authorization = faraday_for(url: 'https://launchpad.37signals.com',
                                  token: token.token)
@@ -95,7 +97,7 @@ get '/auth/:provider/callback' do
     new_user.access_token = SecureRandom.hex
   end
 
-  Token.find_or_create(user_id: user.id) do |new_token|
+  Token.update_or_create(user_id: user.id) do |new_token|
     new_token.token = auth.credentials.token
     new_token.refresh_token = auth.credentials.refresh_token
     new_token.expires_at = Time.at(auth.credentials.expires_at)
