@@ -6,6 +6,7 @@ require 'faraday'
 require 'faraday_middleware'
 require 'faraday-http-cache'
 require 'http_link_header'
+require 'tzinfo'
 require 'icalendar'
 require 'icalendar/tzinfo'
 require 'msgpack'
@@ -15,7 +16,6 @@ require 'sinatra/reloader' if development?
 require 'omniauth-oauth2'
 require 'omniauth-bcx'
 require 'securerandom'
-require 'tzinfo'
 
 require './database'
 
