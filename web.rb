@@ -15,6 +15,7 @@ require 'sinatra/reloader' if development?
 require 'omniauth-oauth2'
 require 'omniauth-bcx'
 require 'securerandom'
+require 'tzinfo'
 
 require './database'
 
