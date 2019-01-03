@@ -19,7 +19,7 @@ gem 'rake'
 gem 'sequel'
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'tzinfo'
+gem 'tzinfo', '~>1.0' # TODO: Change this when https://github.com/icalendar/icalendar/issues/203 is resolved
 
 group :development do
   gem 'pry'
