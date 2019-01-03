@@ -8,7 +8,7 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'faraday-http-cache'
 gem 'http_link_header'
-gem 'icalendar'
+gem 'icalendar', git: "https://github.com/mistydemeo/icalendar.git", branch: "fix_local_time"
 gem 'msgpack'
 gem 'omniauth-bcx'
 gem 'omniauth-oauth2'
@@ -19,7 +19,7 @@ gem 'rake'
 gem 'sequel'
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'tzinfo', '~>1.0' # TODO: Change this when https://github.com/icalendar/icalendar/issues/203 is resolved
+gem 'tzinfo'
 
 group :development do
   gem 'pry'

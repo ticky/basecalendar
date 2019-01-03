@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/mistydemeo/icalendar.git
+  revision: a3bb7a09b5713af3f8b4e8ef3f4cf0cc5b7a07b7
+  branch: fix_local_time
+  specs:
+    icalendar (2.5.2)
+      ice_cube (~> 0.16)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -17,8 +25,6 @@ GEM
     hashie (3.6.0)
     htmlentities (4.3.4)
     http_link_header (0.2.0)
-    icalendar (2.5.2)
-      ice_cube (~> 0.16)
     ice_cube (0.16.3)
     jwt (2.1.0)
     method_source (0.9.2)
@@ -83,7 +89,7 @@ DEPENDENCIES
   faraday-http-cache
   faraday_middleware
   http_link_header
-  icalendar
+  icalendar!
   msgpack
   omniauth-bcx
   omniauth-oauth2
@@ -96,7 +102,7 @@ DEPENDENCIES
   shotgun
   sinatra
   sinatra-contrib
-  tzinfo (~> 1.0)
+  tzinfo
 
 RUBY VERSION
    ruby 2.5.0p0
