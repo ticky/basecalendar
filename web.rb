@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'date'
 require 'dotenv/load'
 require 'faraday'
 require 'faraday_middleware'
@@ -190,13 +191,25 @@ get '/calendar/:token/:config.ics' do
           entries.body.each do |entry|
             dtstart, dtend = if entry['all_day'] == true
                                [
-                                 Date.iso8601(entry['starts_at']),
-                                 Date.iso8601(entry['ends_at'])
+                                 Icalendar::Values::Date.new(
+                                   Date.iso8601(entry['starts_at'])
+                                       .strftime(Icalendar::Values::Date::FORMAT)
+                                 ),
+                                 Icalendar::Values::Date.new(
+                                   Date.iso8601(entry['ends_at'])
+                                       .strftime(Icalendar::Values::Date::FORMAT)
+                                 )
                                ]
                              else
                                [
-                                 DateTime.iso8601(entry['starts_at']),
-                                 DateTime.iso8601(entry['ends_at'])
+                                 Icalendar::Values::DateTime.new(
+                                   DateTime.iso8601(entry['starts_at'])
+                                           .strftime(Icalendar::Values::DateTime::FORMAT)
+                                 ),
+                                 Icalendar::Values::DateTime.new(
+                                   DateTime.iso8601(entry['ends_at'])
+                                           .strftime(Icalendar::Values::DateTime::FORMAT)
+                                 )
                                ]
                              end
 
