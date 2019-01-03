@@ -202,14 +202,24 @@ get '/calendar/:token/:config.ics' do
                                  )
                                ]
                              else
+                               utc_tzid = 'Etc/UTC'
+                               start_time = DateTime.iso8601(entry['starts_at'])
+
+                               unless calendar.timezones.any? { |tz| tz.tzid == utc_tzid }
+                                 utc = TZInfo::Timezone.get utc_tzid
+                                 timezone = utc.ical_timezone start_time
+                                 calendar.add_timezone timezone
+                               end
+
                                [
                                  Icalendar::Values::DateTime.new(
-                                   DateTime.iso8601(entry['starts_at'])
-                                           .strftime(Icalendar::Values::DateTime::FORMAT)
+                                   start_time.strftime(Icalendar::Values::DateTime::FORMAT),
+                                   tzid: utc_tzid
                                  ),
                                  Icalendar::Values::DateTime.new(
                                    DateTime.iso8601(entry['ends_at'])
-                                           .strftime(Icalendar::Values::DateTime::FORMAT)
+                                           .strftime(Icalendar::Values::DateTime::FORMAT),
+                                   tzid: utc_tzid
                                  )
                                ]
                              end
