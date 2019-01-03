@@ -9,6 +9,7 @@ require 'http_link_header'
 require 'icalendar'
 require 'icalendar/tzinfo'
 require 'msgpack'
+require 'premailer/html_to_plain_text'
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'omniauth-oauth2'
@@ -216,9 +217,12 @@ get '/calendar/:token/:config.ics' do
             calendar.event do |event|
               event.uid = entry['id'].to_s
               event.summary = entry['title']
-              event.description = entry['description']
+              extend HtmlToPlainText
+              event.description = convert_to_text(entry['description'],
+                                                  Float::INFINITY)
               event.dtstart = dtstart
               event.dtend = dtend
+              event.url = entry['app_url']
             end
           end
 
