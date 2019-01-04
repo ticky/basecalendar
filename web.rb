@@ -197,7 +197,10 @@ get '/calendar/:token/:config.ics' do
                                        .strftime(Icalendar::Values::Date::FORMAT)
                                  ),
                                  Icalendar::Values::Date.new(
-                                   Date.iso8601(entry['ends_at'])
+                                   # NOTE: icalendar treats "dtend" as the day _after_ the event ends,
+                                   # Basecamp treats it as the last day the event occurs on,
+                                   # so we need to add one to it
+                                   (Date.iso8601(entry['ends_at']) + 1)
                                        .strftime(Icalendar::Values::Date::FORMAT)
                                  )
                                ]
